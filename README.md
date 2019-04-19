@@ -1,4 +1,5 @@
-This is the serverless back-end for my personal wesbite.
+### Serverless API for Contact Forms
+Simply send your form data on the request body and have it emailed to yourself.
 
 * Lambda
 * API Gateway
