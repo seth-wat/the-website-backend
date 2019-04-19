@@ -1,27 +1,7 @@
-
-
 const setup = (mockEmail) => {
     process.env.EMAIL = mockEmail
     return require('./helpers')
 }
-
-// return {
-//     Source: EMAIL,
-//     Destination: { ToAddresses: [EMAIL] },
-//     ReplyToAddresses: [EMAIL],
-//     Message: {
-//         Body: {
-//             Text: {
-//                 Charset: 'UTF-8',
-//                 Data: `Message sent from email ${email} by ${name} \n ${content}`
-//             }
-//         },
-//         Subject: {
-//             Charset: 'UTF-8',
-//             Data: `You received a message from your personal website!`
-//         }
-//     }
-// }
 
 describe("generateEmail", () => {
     describe("on the generated object", () => {
@@ -64,5 +44,44 @@ describe("generateEmail", () => {
             const email = generateEmail({name: 'any', 'email': 'any', content: 'any'})
             expect(email.Message.Subject.Data).toEqual('You received a message from your personal website!')
         })
+    })
+})
+
+describe("generateResponse", () => {
+
+    describe("on the generated object", () => {
+
+        const {generateResponse} = setup('any')
+
+        test("that statusCode is equal to the input code", () => {
+            const inputCode = 200
+            const response = generateResponse(inputCode, {})
+            expect(response.statusCode).toEqual(inputCode)
+        })
+
+        test("that Access-Control-Allow-Origin is *", () => {
+            const response = generateResponse(0, {})
+            expect(response.headers['Access-Control-Allow-Origin']).toEqual('*')
+        })
+
+        test("that Access-Control-Allow-Headers is x-requested-with", () => {
+            const response = generateResponse(0, {})
+            expect(response.headers['Access-Control-Allow-Headers']).toEqual('x-requested-with')
+        })
+
+        test("that Access-Control-Allow-Credentials is true", () => {
+            const response = generateResponse(0, {})
+            expect(response.headers['Access-Control-Allow-Credentials']).toEqual(true)
+        })
+
+        test("that body is the input payload stringified", () => {
+            const mockPayload = {
+                any: 'any'
+            }
+            const response = generateResponse(0, mockPayload)
+            expect(response.body).toEqual(JSON.stringify(mockPayload))
+        })
+
+
     })
 })
