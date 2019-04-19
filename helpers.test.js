@@ -81,7 +81,42 @@ describe("generateResponse", () => {
             const response = generateResponse(0, mockPayload)
             expect(response.body).toEqual(JSON.stringify(mockPayload))
         })
+    })
+})
 
+describe("generateError", () => {
 
+    describe("on the generated object", () => {
+
+        const {generateError} = setup('any')
+
+        test("that statusCode is equal to the input code", () => {
+            const inputCode = 200
+            const response = generateError(inputCode, {})
+            expect(response.statusCode).toEqual(inputCode)
+        })
+
+        test("that Access-Control-Allow-Origin is *", () => {
+            const response = generateError(0, {})
+            expect(response.headers['Access-Control-Allow-Origin']).toEqual('*')
+        })
+
+        test("that Access-Control-Allow-Headers is x-requested-with", () => {
+            const response = generateError(0, {})
+            expect(response.headers['Access-Control-Allow-Headers']).toEqual('x-requested-with')
+        })
+
+        test("that Access-Control-Allow-Credentials is true", () => {
+            const response = generateError(0, {})
+            expect(response.headers['Access-Control-Allow-Credentials']).toEqual(true)
+        })
+
+        test("that body is the input error's error msg stringified", () => {
+            const mockError = {
+                message: 'any'
+            }
+            const response = generateError(0, mockError)
+            expect(response.body).toEqual(JSON.stringify(mockError.message))
+        })
     })
 })
