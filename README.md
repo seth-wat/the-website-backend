@@ -1,3 +1,4 @@
+![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)
 ### Serverless API for Contact Forms
 Simply send your form data on the request body and have it emailed to yourself.
 

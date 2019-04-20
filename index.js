@@ -1,9 +1,10 @@
 const aws = require('aws-sdk')
 const ses = new aws.SES()
-const { generateEmail, generateResponse, generateError} = require('helpers')
+const { generateEmail, generateResponse, generateError} = require('./helpers')
 
 
 module.exports.send = async (event) => {
+
     try {
         const body = JSON.parse(event.body)
         const emailParams = generateEmail(body)
@@ -12,4 +13,5 @@ module.exports.send = async (event) => {
     } catch (err) {
         return generateError(500, err)
     }
+
 }

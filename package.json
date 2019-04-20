@@ -7,6 +7,9 @@
     "aws-sdk": "^2.439.0",
     "serverless": "^1.41.0"
   },
+  "scripts": {
+    "test": "yarn jest"
+  },
   "devDependencies": {
     "jest": "^24.7.1"
   }
