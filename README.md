@@ -1,4 +1,5 @@
 ![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)
+<a href="#badge"><img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square"></a>
 ### Serverless API for Contact Forms
 Simply send your form data on the request body and have it emailed to yourself.
 
